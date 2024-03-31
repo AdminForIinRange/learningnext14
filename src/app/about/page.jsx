@@ -1,13 +1,13 @@
-import React from 'react'
+import Image from 'next/image';
+import React from 'react';
 
-import img from "../../../public/about.png"
 const AboutPage = () => {
   return (
     <div>
-
-      {/* <img src={img} width={'100px'}  height={"100px"}/> */}
+      {/* Use the imported image directly */}
+      <Image src="/about.png" alt="about" width={500} height={500} />
     </div>
-  )
-}
+  );
+};
 
-export default AboutPage
+export default AboutPage;
