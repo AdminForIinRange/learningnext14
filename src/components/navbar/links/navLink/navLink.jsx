@@ -5,7 +5,7 @@ import styles from "./navLink.module.css";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-const NavLinks = ({ item }) => {
+const NavLink = ({ item }) => {
   const pathName = usePathname();
   return (
     <Link
@@ -22,4 +22,4 @@ const NavLinks = ({ item }) => {
   );
 };
 
-export default NavLinks;
+export default NavLink;

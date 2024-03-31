@@ -1,11 +1,11 @@
 "use client";
 
-import Link from "next/link";
 import React, { useState } from "react";
+import Link from "next/link";
+import NavLink from "./navLink/navLink";
 import styles from "./links.module.css";
-import NavLinks from "./navLink/navLinks";
+
 const Links = () => {
- 
   const links = [
     {
       title: "Homepage",
@@ -25,36 +25,39 @@ const Links = () => {
     },
   ];
 
-
   const [open, setOpen] = useState(false);
 
   const session = true;
   const isAdmin = true;
 
   return (
-    <div className={styles.links}>
-      {links.map((link) => (
-        <Link key={link.title} href={link.path}>
-          <NavLinks item={link} key={link.title} />
-        </Link>
-      ))}
+    <div className={styles.container}>
+      <div className={styles.links}>
+        {links.map((link) => (
+          <Link key={link.title} href={link.path}>
+            <NavLink item={link} />
+          </Link>
+        ))}
 
-      {session ? (
-        <>
+        {session ? (
+          <>
+            {isAdmin && <NavLink item={{ title: "Admin", path: "/admin" }} />}
+            <button className={styles.button}>Logout</button>
+          </>
+        ) : (
+          <NavLink item={{ title: "Login", path: "/login" }} />
+        )}
+      </div>
+      <button  className={styles.menuButton}  onClick={() => setOpen((prev) => !prev)}>
+        Menu
+      </button>
 
-   {/* 
-  So he is just pushing a new obj in the item, it's like pushing a conditional into an array. 
-  There are different ways of doing this, just like that 'active' parameter thing in NavLinks.
-*/}
-
-          {isAdmin && <NavLinks item={{ title: "Admin", path: "/admin" }} />} 
-          <button className={styles.logout}>Logout</button>{" "}
-        </>
-      ) : (
-        <>
-
-          <NavLinks item={{ title: "Login", path: "/login" }} />{" "}
-        </>
+      {open && (
+        <div className={styles.mobileLinks}>
+          {links.map((link) => (
+            <NavLink item={link} key={link.title} />
+          ))}
+        </div>
       )}
     </div>
   );
