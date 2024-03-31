@@ -9,8 +9,10 @@ const NavLinks = ({ item }) => {
   const pathName = usePathname();
   return (
     <Link
-      className={`${styles.container} ${
-        pathName === item.title && styles.active 
+      className={`${styles.container} 
+      
+      ${
+        pathName === item.path && styles.active // is pathname is equal to item.title then active class will
       }`}
       href={item.path}
     >

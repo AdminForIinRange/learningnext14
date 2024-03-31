@@ -22,7 +22,8 @@ const Links = () => {
     },
   ];
 
-  
+  const session = true
+  const isAdmin = true
 
   return (
     <div  className={styles.links}>
