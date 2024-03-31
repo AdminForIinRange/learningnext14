@@ -9,6 +9,7 @@ const BlogPage = () => {
       <PostCard />
       <PostCard />
 
+
       <PostCard />
  
     </div>
