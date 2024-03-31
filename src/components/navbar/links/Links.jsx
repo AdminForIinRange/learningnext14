@@ -1,8 +1,11 @@
+"use client";
+
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import styles from "./links.module.css";
 import NavLinks from "./navLink/navLinks";
 const Links = () => {
+ 
   const links = [
     {
       title: "Homepage",
@@ -21,6 +24,9 @@ const Links = () => {
       path: "/blog",
     },
   ];
+
+
+  const [open, setOpen] = useState(false);
 
   const session = true;
   const isAdmin = true;
