@@ -1,13 +1,17 @@
 import React from 'react'
 import styles from "./postUser.module.css";
 import Image from "next/image"
-const PostUser = () => {
+
+
+
+
+const PostUser = ({userId}) => {
   return (
     <div>
  <div className={styles.container}>
       <Image
         className={styles.avatar}
-        src={"/noavatar.png"}
+        src={userId ? "/noavatar.png" : "/noavatar.png"}
         alt=""
         width={50}
         height={50}
