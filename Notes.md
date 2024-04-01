@@ -252,7 +252,45 @@ const posts = await getPosts();
 ```
 
 ```js
-//
+// Don't pay attention to this code too much; it's just an example of how you can communicate code between data (node) to next.js + App and Components , rather than using fetching an API within the page's .jsx. It's cleaner to put all functional code in your lib/data.js.
+
+
+// Fetching all the posts from the mock API
+export const getPosts = async () => {
+  return posts; // returning all the posts
+};
+
+// Fetching a single post from the mock API
+export const getPost = async (id) => {
+  // finding the post based on the id
+  const post = posts.find((post) => post.id === parseInt(id));
+
+  // returning the found post
+  return post;
+};
+
+// Fetching a user from the mock API
+export const getUser = async (id) => {
+  // finding the user based on the id
+  const user = users.find((user) => user.id === parseInt(id));
+
+  // returning the found user
+  return user;
+};
+
+// Sample data
+const users = [
+  { id: 1, name: "John" },
+  { id: 2, name: "Jane" },
+];
+
+const posts = [
+  { id: 1, title: "Post 1", body: "......", userId: 1 },
+  { id: 2, title: "Post 2", body: "......", userId: 1 },
+  { id: 3, title: "Post 3", body: "......", userId: 2 },
+  { id: 4, title: "Post 4", body: "......", userId: 2 },
+];
+
 ```
 
 ```js
