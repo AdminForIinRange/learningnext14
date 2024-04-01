@@ -92,3 +92,13 @@ const NavigationTestPage = () => {
 
 export default NavigationTestPage
 ```
+
+```js
+//dont use  {cache: "no-store"} when you have large ammounst fo data changing, but if your data is retaibly conststant with minro changes then use it, 
+
+  const res = await fetch("https://jsonplaceholder.typicode.com/posts", {cache: "no-store"});
+
+//{revalidate:3600} will refesh your data evey 1 hour = 3600
+    const res = await fetch("https://jsonplaceholder.typicode.com/posts", {next: {revalidate:3600}});
+
+```
