@@ -14,12 +14,11 @@ const getData = async () => {
 };
 
 const BlogPage = async () => {
+
+  const posts = await getData()
   return (
     <div className={styles.container}>
-      <PostCard />
-      <PostCard />
-
-      <PostCard />
+     {posts.map((post) => <PostCard key={post.id} post={post} />)}
     </div>
   );
 };

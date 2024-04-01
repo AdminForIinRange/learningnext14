@@ -20,7 +20,7 @@ const PostCard = () => {
       <div className={styles.bottom}>
         <h1 className={styles.title}>Title</h1>
         <p className={styles.desc}>
-          Desc dgsdrge ergwwfewefewefwf wefwwefvwfvwef w
+          Desc dgsdrge ergwwfewefewefwf wefwwefvwfvwef d
         </p>
       </div>{" "}
       <Link className={styles.link} href="/blog/post">
