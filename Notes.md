@@ -102,3 +102,11 @@ export default NavigationTestPage
     const res = await fetch("https://jsonplaceholder.typicode.com/posts", {next: {revalidate:3600}});
 
 ```
+
+```js
+//this will take in dynamic id giving by the blog from the api
+ <Link className={styles.link}href={`/blog/${post.id}`}> 
+        READ MORE
+      </Link>
+
+      ```
