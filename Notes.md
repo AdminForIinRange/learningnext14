@@ -1,3 +1,17 @@
+*** Read
+
+```js
+
+// It's very important to follow proper Next.js naming conventions; otherwise, Next.js may not compile correctly, and you may run into unwanted performance issues.
+
+// If you run into any issues, remember to restart your development server and review the names and issues.
+
+
+
+
+```
+
+
 ```JS
 
 // If you ever get stuck on hydration, watch Timestamp 1:58.
@@ -133,11 +147,7 @@ const {slug} = params
 
 
 
-```js
 
-//
-
-```
 
 ```js
 
