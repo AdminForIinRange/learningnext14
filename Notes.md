@@ -144,7 +144,7 @@ const {slug} = params
 
 ```js
 import Image from "next/image";
-import React from "react";
+import React, { Suspense } from "react";
 import styles from "./singlePost.module.css";
 import PostUser from "@/components/postUser/PostUser";
 
@@ -178,7 +178,11 @@ const SinglePostPage = async ({ params }) => {
       <div className={styles.textContainer}>
         <h1 className={styles.title}> {posts.title} </h1>
         <div className={styles.detail}>
+
+        <Suspense fallback={<div>Loading...</div>}>
           <PostUser userId={posts.userId} />
+            
+            </Suspense>
           {/*  passing userId from  `https://jsonplaceholder.typicode.com/posts/` allowing me to access a single post from the api */}
           <div className={styles.detailText}>
             <span className={styles.detailTitle}>aUTHOR</span>
@@ -200,7 +204,51 @@ export default SinglePostPage;
 ```
 
 ```js
-//
+//Powerful stuff
+
+// src\lib\data.js
+
+const users = [
+  { id: 1, name: "John" },
+  { id: 2, name: "Jane" },
+];
+
+const posts = [
+  { id: 1, title: "Post 1", body: "......", userId: 1 },
+  { id: 2, title: "Post 2", body: "......", userId: 1 },
+  { id: 3, title: "Post 3", body: "......", userId: 2 },
+  { id: 4, title: "Post 4", body: "......", userId: 2 },
+];
+export const getPosts = async () => {
+  return posts
+}
+
+export const getPost = async (id) => {
+    return posts.find((post) => post.id === id)
+  }
+  
+  export const getUser = async (id) => {
+    return posts.find((post) => post.id === id)
+  }
+
+
+//src\app\blog\page.jsx 
+
+import { getPosts } from "@/lib/data";
+
+const BlogPage = async () => {
+
+const posts = await getPosts();
+
+  return (
+    <div className={styles.container}>
+      {posts.map((post) => (
+        <PostCard key={post.id} post={post} />
+      ))}
+    </div>
+  );
+};
+
 ```
 
 ```js
