@@ -5,7 +5,7 @@ import PostUser from "@/components/postUser/PostUser";
 
 const getData = async (slug) => {
   const res = await fetch(`https://jsonplaceholder.typicode.com/posts/${slug}`); // using slug as a parameter
-// THIS WHOEL API IS STURCTED AROUND USER, POST'S AND OTHER DATA YOU WOULD SEE IN SOCIAL MEDIA
+  // THIS WHOEL API IS STURCTED AROUND USER, POST'S AND OTHER DATA YOU WOULD SEE IN SOCIAL MEDIA
   if (!res.ok) {
     throw new Error("Something went wrong");
   }
@@ -33,8 +33,8 @@ const SinglePostPage = async ({ params }) => {
       <div className={styles.textContainer}>
         <h1 className={styles.title}> {posts.title} </h1>
         <div className={styles.detail}>
-        <PostUser userId={posts.userId} /> 
-           {/*  passing userId from  `https://jsonplaceholder.typicode.com/posts/` allowing me to access a single post from the api */}
+          <PostUser userId={posts.userId} />
+          {/*  passing userId from  `https://jsonplaceholder.typicode.com/posts/` allowing me to access a single post from the api */}
           <div className={styles.detailText}>
             <span className={styles.detailTitle}>aUTHOR</span>
             <span className={styles.detailValue}>detailValue</span>

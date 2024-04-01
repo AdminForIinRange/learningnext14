@@ -4,7 +4,7 @@ import Image from "next/image";
 
 const data = async (userId) => {
   const res = await fetch(
-    `https://jsonplaceholder.typicode.com/users/${userId}` //accessing user id from data(userId);  
+    `https://jsonplaceholder.typicode.com/users/${userId}`, //accessing user id from data(userId);
   );
 
   if (!res.ok) {

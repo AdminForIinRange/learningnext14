@@ -1,16 +1,10 @@
-*** Read
+\*\*\* Read
 
 ```js
-
 // It's very important to follow proper Next.js naming conventions; otherwise, Next.js may not compile correctly, and you may run into unwanted performance issues.
 
 // If you run into any issues, remember to restart your development server and review the names and issues.
-
-
-
-
 ```
-
 
 ```JS
 
@@ -78,7 +72,7 @@ export default ContactPage;
 
 "use client"
 import Link from "next/link"
-import { usePathname, useRouter, useSearchParams } from "next/navigation" //updated and higher vir import dont forget Next/<import> is always recomened 
+import { usePathname, useRouter, useSearchParams } from "next/navigation" //updated and higher vir import dont forget Next/<import> is always recomened
 
 const NavigationTestPage = () => {
 
@@ -108,28 +102,29 @@ export default NavigationTestPage
 ```
 
 ```js
-//dont use  {cache: "no-store"} when you have large ammounst fo data changing, but if your data is retaibly conststant with minro changes then use it, 
+//dont use  {cache: "no-store"} when you have large ammounst fo data changing, but if your data is retaibly conststant with minro changes then use it,
 
-  const res = await fetch("https://jsonplaceholder.typicode.com/posts", {cache: "no-store"});
+const res = await fetch("https://jsonplaceholder.typicode.com/posts", {
+  cache: "no-store",
+});
 
 //{revalidate:3600} will refesh your data evey 1 hour = 3600
-    const res = await fetch("https://jsonplaceholder.typicode.com/posts", {next: {revalidate:3600}});
-
+const res = await fetch("https://jsonplaceholder.typicode.com/posts", {
+  next: { revalidate: 3600 },
+});
 ```
 
 ```js
-
 // cool concept:
 // since the each blog holds all of teh json place holder inc teh user id and id, by linking }href={`/blog/${post.id}`}
 // we can get the id from each post and travel inside of it
 //THIS IS ONLY POSSIBLE BECAUSE OF THE WAY THE BLONDE FILES ARE STORED, AND THE SLUG
 
 //this will take in dynamic id giving by the blog from the api
- <Link className={styles.link}href={`/blog/${post.id}`}> 
-        READ MORE
-      </Link>
- ```
-
+<Link className={styles.link} href={`/blog/${post.id}`}>
+  READ MORE
+</Link>
+```
 
 ```js
 
@@ -138,75 +133,33 @@ export default NavigationTestPage
 
 const SinglePostPage = async ({ params }) => { // using params, slug is passed as a parameter its a buit in function in nextjs
 
-const {slug} = params 
+const {slug} = params
   const posts = await getData(slug) //passing slug as a parameter in side getdata (fetch func), slug's raw value is /blog/[slug]
 
 //   The params object allows you to access the dynamic route parameters passed to the page component in Next.js.
 
- ```
-
-
-
-
-
-```js
-
-//
-
 ```
 
-
-
 ```js
-
 //
-
 ```
 
-
-
-
-
 ```js
-
 //
-
 ```
 
-
-
-
-
-
-
 ```js
-
 //
-
 ```
 
-
-
-
-
-
 ```js
-
 //
-
 ```
 
-
-
-
-
 ```js
-
 //
-
 ```
 
-
-
-
-
+```js
+//
+```
