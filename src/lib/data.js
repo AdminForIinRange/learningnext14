@@ -1,8 +1,8 @@
 
-import {Post} from "../models/Post"
-import {User} from "../models/User"
-import { connectToDb } from "./connectTodb";
- 
+import {Post, User} from "./models"
+
+import { connectToDb } from "./utils";
+import { unstable_noStore as noStore } from "next/cache";
 // Fetching all the posts from the mock API
 export const getPosts = async () => {
   try {
@@ -11,7 +11,7 @@ export const getPosts = async () => {
     return post 
   } catch (error) {
     console.log(error);
-    throw new Error("Failed to Get Post:  `" + error + "`");
+    throw new Error("Failed to Get Post(s):  `" + error + "`");
   }
 };
 
@@ -35,9 +35,22 @@ export const getUser = async (id) => {
         return user 
       } catch (error) {
         console.log(error);
-        throw new Error("Failed to Get Post:  `" + error + "`");
+        throw new Error("Failed to Get User:  `" + error + "`");
       }
 };
+
+
+export const getUsers = async (id) => {
+    try {
+        connectToDb()
+        const user = await User.findById()
+        return user 
+      } catch (error) {
+        console.log(error);
+        throw new Error("Failed to Get User(s):  `" + error + "`");
+      }
+};
+
 
 // Sample data
 const users = [
