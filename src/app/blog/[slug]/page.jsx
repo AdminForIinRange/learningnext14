@@ -1,6 +1,7 @@
 import Image from "next/image";
 import React from "react";
 import styles from "./singlePost.module.css";
+import PostUser from "@/components/postUser/PostUser";
 
 
 
@@ -37,13 +38,14 @@ const {slug} = params
           fill
           className={styles.img}
         />
+
       </div>
 
       <div className={styles.textContainer}>
         <h1 className={styles.title}> {posts.title} </h1>
         <div className={styles.detail}>
-          {/*   
-//add userpost img */}
+     
+        <PostUser />
           <div className={styles.detailText}>
             <span className={styles.detailTitle}>aUTHOR</span>
             <span className={styles.detailValue}>detailValue</span>

@@ -64,7 +64,7 @@ export default ContactPage;
 
 "use client"
 import Link from "next/link"
-import { usePathname, useRouter, useSearchParams } from "next/navigation"
+import { usePathname, useRouter, useSearchParams } from "next/navigation" //updated and higher vir import dont forget Next/<import> is always recomened 
 
 const NavigationTestPage = () => {
 
