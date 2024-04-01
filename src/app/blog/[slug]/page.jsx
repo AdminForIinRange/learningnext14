@@ -45,7 +45,7 @@ const {slug} = params
         <h1 className={styles.title}> {posts.title} </h1>
         <div className={styles.detail}>
      
-        <PostUser />
+<PostUser  />
           <div className={styles.detailText}>
             <span className={styles.detailTitle}>aUTHOR</span>
             <span className={styles.detailValue}>detailValue</span>
