@@ -329,5 +329,8 @@ export const connectToDb = async () => {
 ```js
 // So, I found out that your .env file must not contain white spaces. My mistake was having a space between '=' because I assumed it was a normal variable declaration.
 
+MONGO_URI="" // correct 
+
+MONGO_URI = "" // incorrect 
 
 ```
