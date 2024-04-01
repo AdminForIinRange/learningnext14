@@ -5,7 +5,7 @@ import PostUser from "@/components/postUser/PostUser";
 
 const getData = async (slug) => {
   const res = await fetch(`https://jsonplaceholder.typicode.com/posts/${slug}`); // using slug as a parameter
-
+// THIS WHOEL API IS STURCTED AROUND USER, POST'S AND OTHER DATA YOU WOULD SEE IN SOCIAL MEDIA
   if (!res.ok) {
     throw new Error("Something went wrong");
   }
