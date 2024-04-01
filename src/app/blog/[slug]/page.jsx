@@ -2,22 +2,23 @@ import Image from "next/image";
 import React, { Suspense } from "react";
 import styles from "./singlePost.module.css";
 import PostUser from "@/components/postUser/PostUser";
+import { getPost } from "@/lib/data";
+// const getData = async (slug) => {
+//   const res = await fetch(`https://jsonplaceholder.typicode.com/posts/${slug}`); // using slug as a parameter
+//   // THIS WHOEL API IS STURCTED AROUND USER, POST'S AND OTHER DATA YOU WOULD SEE IN SOCIAL MEDIA
+//   if (!res.ok) {
+//     throw new Error("Something went wrong");
+//   }
 
-const getData = async (slug) => {
-  const res = await fetch(`https://jsonplaceholder.typicode.com/posts/${slug}`); // using slug as a parameter
-  // THIS WHOEL API IS STURCTED AROUND USER, POST'S AND OTHER DATA YOU WOULD SEE IN SOCIAL MEDIA
-  if (!res.ok) {
-    throw new Error("Something went wrong");
-  }
-
-  return res.json();
-};
+//   return res.json();
+// };
 
 const SinglePostPage = async ({ params }) => {
   // using params, slug is passed as a parameter its a buit in function in nextjs
 
   const { slug } = params;
-  const posts = await getData(slug); //passing slug as a parameter in side getdata, slug's raw value is /blog/[slug]
+  // const posts = await getData(slug);
+  const post = await getPost(slug); //passing slug as a parameter in side getdata, slug's raw value is /blog/[slug]
 
   return (
     <div className={styles.container}>
@@ -31,13 +32,13 @@ const SinglePostPage = async ({ params }) => {
       </div>
 
       <div className={styles.textContainer}>
-        <h1 className={styles.title}> {posts.title} </h1>
+        <h1 className={styles.title}> {post?.title} </h1>
         <div className={styles.detail}>
 
-        <Suspense fallback={<div>Loading...</div>}>
-          <PostUser userId={posts.userId} />
+{   post &&   <Suspense fallback={<div>Loading...</div>}>
+          <PostUser userId={post.userId} />
             
-            </Suspense>
+            </Suspense>}
           {/*  passing userId from  `https://jsonplaceholder.typicode.com/posts/` allowing me to access a single post from the api */}
           <div className={styles.detailText}>
             <span className={styles.detailTitle}>aUTHOR</span>
@@ -48,7 +49,7 @@ const SinglePostPage = async ({ params }) => {
             <span className={styles.detailValue}>detailValue</span>
           </div>
         </div>
-        <div className={styles.content}>{posts.body}</div>
+        <div className={styles.content}>{post.body}</div>
       </div>
     </div>
   );

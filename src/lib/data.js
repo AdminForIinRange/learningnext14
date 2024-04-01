@@ -15,7 +15,8 @@ export const getPosts = async () => {
 }
 
 export const getPost = async (id) => {
-    return posts.find((post) => post.id === id)
+    const post = posts.find((post) => post.id === parseInt(id))
+return post
   }
   
   export const getUser = async (id) => {
