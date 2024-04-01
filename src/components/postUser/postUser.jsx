@@ -2,10 +2,9 @@ import React from "react";
 import styles from "./postUser.module.css";
 import Image from "next/image";
 
-const data = async (userId) => {
+const data = async (userId) => { //accessing user id from data(userId);
   const res = await fetch(
-    `https://jsonplaceholder.typicode.com/users/${userId}`, //accessing user id from data(userId);
-  );
+    `https://jsonplaceholder.typicode.com/users/${userId}`, {cache: "no-store"});
 
   if (!res.ok) {
     throw new Error("Failed to fetch data");
@@ -27,6 +26,8 @@ const PostUser = async ({ userId }) => {
           width={50}
           height={50}
         />
+
+
         <div className={styles.texts}>
           <span className={styles.title}>Author</span>
           <span className={styles.username}>{user.username}</span>

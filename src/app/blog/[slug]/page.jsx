@@ -1,5 +1,5 @@
 import Image from "next/image";
-import React from "react";
+import React, { Suspense } from "react";
 import styles from "./singlePost.module.css";
 import PostUser from "@/components/postUser/PostUser";
 
@@ -33,7 +33,11 @@ const SinglePostPage = async ({ params }) => {
       <div className={styles.textContainer}>
         <h1 className={styles.title}> {posts.title} </h1>
         <div className={styles.detail}>
+
+        <Suspense fallback={<div>Loading...</div>}>
           <PostUser userId={posts.userId} />
+            
+            </Suspense>
           {/*  passing userId from  `https://jsonplaceholder.typicode.com/posts/` allowing me to access a single post from the api */}
           <div className={styles.detailText}>
             <span className={styles.detailTitle}>aUTHOR</span>
