@@ -34,8 +34,12 @@ const SinglePostPage = async ({ params }) => {
       <div className={styles.textContainer}>
         <h1 className={styles.title}> {post?.title} </h1>
         <div className={styles.detail}>
-
-
+{/* 
+        {post && (
+            <Suspense fallback={<div>Loading...</div>}>
+              <PostUser userId={post.userId} />
+            </Suspense>
+          )} */}
           {/*  passing userId from  `https://jsonplaceholder.typicode.com/posts/` allowing me to access a single post from the api */}
           <div className={styles.detailText}>
             <span className={styles.detailTitle}>aUTHOR</span>
@@ -46,7 +50,7 @@ const SinglePostPage = async ({ params }) => {
             <span className={styles.detailValue}>detailValue</span>
           </div>
         </div>
-        <div className={styles.content}>{post.body}</div>
+        <div className={styles.content}>{post?.desc}</div>
       </div>
     </div>
   );
