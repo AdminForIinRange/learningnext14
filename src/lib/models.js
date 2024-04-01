@@ -30,3 +30,35 @@ const userSchema = new mongoose.Schema({
     default: false,
   },
 }, { timestamps: true });
+
+
+
+const postSchema = new mongoose.Schema({
+    username: {
+      type: String,
+      required: true,
+      unique: true,
+      min: 3,
+      max: 20,
+    },
+    desc: {
+      type: String,
+      required: true,
+    
+    },
+ 
+    img: {
+      type: String,
+    },
+  
+    userID: {
+      type: String,
+      required: true,
+    },
+    slug: {
+        type: String,
+        required: true,
+        unique: true,
+      }
+  }, { timestamps: true });
+  
