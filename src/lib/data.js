@@ -1,24 +1,42 @@
+
+import {Post} from "../models/Post"
+import {User} from "../models/User"
+import { connectToDb } from "./connectTodb";
+ 
 // Fetching all the posts from the mock API
 export const getPosts = async () => {
-  return posts; // returning all the posts
+  try {
+    connectToDb()
+    const posts = await Post.find()
+    return post 
+  } catch (error) {
+    console.log(error);
+    throw new Error("Failed to Get Post:  `" + error + "`");
+  }
 };
 
 // Fetching a single post from the mock API
 export const getPost = async (id) => {
-  // finding the post based on the id
-  const post = posts.find((post) => post.id === parseInt(id));
-
-  // returning the found post
-  return post;
+    try {
+        connectToDb()
+        const post = await Post.find({slug: slug})
+        return post 
+      } catch (error) {
+        console.log(error);
+        throw new Error("Failed to Get Post:  `" + error + "`");
+      }
 };
 
 // Fetching a user from the mock API
 export const getUser = async (id) => {
-  // finding the user based on the id
-  const user = users.find((user) => user.id === parseInt(id));
-
-  // returning the found user
-  return user;
+    try {
+        connectToDb()
+        const user = await User.findById(id)
+        return user 
+      } catch (error) {
+        console.log(error);
+        throw new Error("Failed to Get Post:  `" + error + "`");
+      }
 };
 
 // Sample data
