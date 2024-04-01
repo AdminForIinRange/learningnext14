@@ -293,9 +293,12 @@ const posts = [
 
 ```
 
-```js
-//
-```
+
+//after login and createing a projecrt and creating a cluster you gotta press connect and follow the instruction 
+-npm install mongodb 
+
+-mongodb+srv://bhattaraianjesh123:<password>@cluster0.l7tduy7.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+
 
 ```js
 //
