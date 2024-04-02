@@ -34,12 +34,12 @@ const SinglePostPage = async ({ params }) => {
   return (
     <div className={styles.container}>
       <div className={styles.imgContainer}>
-        <Image
-          src="https://images.pexels.com/photos/19294343/pexels-photo-19294343/free-photo-of-pink-car.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+      {post?.img &&  <Image
+          src={post?.img}
           alt=""
           fill
           className={styles.img}
-        />
+        />}
       </div>
 
       <div className={styles.textContainer}>

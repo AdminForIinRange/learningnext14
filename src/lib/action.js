@@ -1,3 +1,4 @@
+import { revalidatePath } from "next/cache";
 import { Post } from "./models";
 import { connectToDb } from "./utils";
 
@@ -12,6 +13,10 @@ export const addPost = async (formData) => {
     await newPost.save();
 
     console.log("new post added");
+    revalidatePath(`/blog`); 
+    // The revalidate option in Next.js refreshes the content 
+    //of the page on the server-side, not in the browser.
+
   } catch (err) {
     console.log(err);
   }

@@ -561,7 +561,9 @@ export const addPost = async (formData) => {
 ```
 
 ```js
-
+    revalidatePath(`/blog`); 
+    // The revalidate option in Next.js refreshes the content 
+    //of the page on the server-side, not in the browser.
 ```
 
 ```js

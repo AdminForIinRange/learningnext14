@@ -26,7 +26,7 @@ export const getPost = async (slug) => {
 };
 
 export const getUser = async (id) => {
-  noStore();
+  noStore(); // when im dev moode it will store the data in cache but in production it will not
   try {
     connectToDb();
     const user = await User.findById(id);
