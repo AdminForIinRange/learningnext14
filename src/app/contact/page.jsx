@@ -1,4 +1,5 @@
-// "use client";
+// "use client"; // you shoudl be using Client, unless you are going to render on the server
+
 import Image from "next/image";
 import styles from "./contact.module.css";
 // import dynamic from "next/dynamic";

@@ -374,7 +374,7 @@ import React from 'react'
 import {sayHello} from "@/lib/action" // I forgot the function name was sayHello and not say(h)ello (lower case "h"). Make sure you always have a good naming convention to stop these types of stupid errors, and actually read the code. Maybe TypeScript is good, but then again I didn't read the error correctly. Maybe I should have hovered over 'i' and read it.
 
  
-const ServerActionTest  = () => {   // Yeah, so action outputs anything as long as a button is present, basically like a form submit, but without the id of "submit".
+const ServerActionTest  = () => {   // Yeah, so action outputs anything as long as a button is present, basically like a form submit, but without the type="submit".
   return (
 
     <div>
