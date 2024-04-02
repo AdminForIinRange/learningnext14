@@ -429,11 +429,6 @@ export default ServerActionTest
 ```js
 import React from "react";
 import { addPost } from "@/lib/action";
-const ServerActionTest = () => {
-  const actionInComponent = async () => {
-    "use server";
-    console.log("hello");
-  };
   return (
     <div>
       {/* //so when i use Action, i am directing the location of where the data event will be sent to.
