@@ -332,11 +332,11 @@ MONGO_URI = ""; // incorrect
 
 ```js
 // For a better SEO
-
-export const metadata = { //layout.jsx
+//When the title is generated, the %s placeholder will be replaced with a specific value. For example, if you have a page with the title "About Us", the %s will be replaced with "About Us", resulting in the title "About Us | Next.js 14".
+export const metadata = { //layout.jsx 
   title: {
     default:"Next.js 14 Homepage",
-    template:"%s | Next.js 14"
+    template:"%s | Next.js 14" // it seems like a place holder, like a template `%{pageTitle}`
   },
   description: "Next.js starter app description",
 };
@@ -350,7 +350,11 @@ export const metadata = { // about/page.jsx
 ```
 
 ```js
+const sayHello =  async () => { // when use server it has to be async 
+    "use server";
 
+    console.log("hello");
+}
 ```
 
 ```js
