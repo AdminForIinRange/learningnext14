@@ -5,8 +5,6 @@ import { Post } from "./models";
 import { connectToDb } from "./utils";
 
 export const addPost = async (formData) => {
-
-
   const { title, desc, slug, userId } = Object.fromEntries(formData);
 
   try {
@@ -15,10 +13,9 @@ export const addPost = async (formData) => {
     await newPost.save();
 
     console.log("new post added");
-    revalidatePath(`/blog`); 
-    // The revalidate option in Next.js refreshes the content 
+    revalidatePath(`/blog`);
+    // The revalidate option in Next.js refreshes the content
     //of the page on the server-side, not in the browser.
-
   } catch (err) {
     console.log(err);
   }
@@ -26,22 +23,16 @@ export const addPost = async (formData) => {
   console.log(title, desc, slug, userId);
 };
 
-
-
 export const deletePost = async (formData) => {
-
-
-  const { id} = Object.fromEntries(formData);
+  const { id } = Object.fromEntries(formData);
 
   try {
     connectToDb();
-  
+
     await Post.findByIdAndDelete(id); //removing post via Id from form data
 
     console.log(" post deleted");
-    revalidatePath(`/blog`); 
-   
-
+    revalidatePath(`/blog`);
   } catch (err) {
     console.log(err);
   }

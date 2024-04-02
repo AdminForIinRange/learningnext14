@@ -16,8 +16,8 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-
 # Notes.md from Next.js (Update and Format Every Day until Project is complete)
+
 # Read these Notes if need be
 
 ```js
