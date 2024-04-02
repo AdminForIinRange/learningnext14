@@ -425,6 +425,7 @@ export default ServerActionTest
 
 
 ```
+## Server Side Input's with "action={}" and name
 
 ```js
 import React from "react";
@@ -455,6 +456,7 @@ attribute that defines the server-side endpoint where form data should be sent.
 
 export default ServerActionTest;
 ```
+## Grasping Server Side input concepts and Other
 
 ```js
 /* In React, when you define a form with an onSubmit event handler, 
@@ -528,7 +530,33 @@ export const addPost = async (formData) => {
 
 ```
 
+## POST to MongoDB (adding data to collection)
 ```js
+
+
+import { Post } from "./models";
+import { connectToDb } from "./utils";
+
+export const addPost = async (formData) => {
+  "use server";
+// //creates a "new" instance of post then with the destured elemenst from   const { title, desc, slug, userId } = Object.fromEntries(formData),
+  const { title, desc, slug, userId } = Object.fromEntries(formData);
+
+  try {
+
+    //  After connecting to DB, new Post (imported from the model, takes in all { title, desc, slug, userId }
+    connectToDb();
+    const newPost = new Post({ title, desc, slug, userId });
+    await newPost.save();
+    // awiat then saves await newPost.save();
+
+    console.log("new post added");
+  } catch (err) {
+    console.log(err);
+  }
+
+  console.log(title, desc, slug, userId);
+};
 
 ```
 
