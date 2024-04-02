@@ -331,6 +331,21 @@ MONGO_URI = ""; // incorrect
 ```
 
 ```js
+// For a better SEO
+
+export const metadata = { //layout.jsx
+  title: {
+    default:"Next.js 14 Homepage",
+    template:"%s | Next.js 14"
+  },
+  description: "Next.js starter app description",
+};
+//-----------------------
+
+export const metadata = { // about/page.jsx
+  title: "About Page",
+  description: "About description",
+};
 
 ```
 
