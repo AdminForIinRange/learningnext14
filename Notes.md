@@ -577,38 +577,39 @@ revalidatePath(`/blog`);
 //its juts a input tag form that asks the user for an Id, and you type in the id you want then the event gets directed (REACT auto grabs the event) to @/lib/action by the action={deletePost}
 
 import { deletePost } from "@/lib/action";
- <form action={deletePost}>
-        <input type="text" placeholder="id" name="id" /> 
-        <button> test </button>{" "}
-      </form>
-
+<form action={deletePost}>
+  <input type="text" placeholder="id" name="id" />
+  <button> test </button>{" "}
+</form>;
 
 //lib/action.js
 
-// export const deletePost = async (formData) Tt takes in in the event from the input given by the action={deletePost} and destructure's the id 
+// export const deletePost = async (formData) Tt takes in in the event from the input given by the action={deletePost} and destructure's the id
 
 export const deletePost = async (formData) => {
-
-
-  const { id} = Object.fromEntries(formData);
+  const { id } = Object.fromEntries(formData);
 
   try {
-    connectToDb(); //then it connects to the DB, try/catch to find and errors 
-  
+    connectToDb(); //then it connects to the DB, try/catch to find and errors
+
     await Post.findByIdAndDelete(id); //removing post via Id from form data
 
     console.log(" post deleted");
-    revalidatePath(`/blog`);  // lastly it revalidatePath, (already explained = crt+F)
-   
-
+    revalidatePath(`/blog`); // lastly it revalidatePath, (already explained = crt+F)
   } catch (err) {
     console.log(err);
   }
 
   console.log(id);
 };
-
 ```
+
+##
+
+```js
+//
+```
+
 ##
 
 ```js
@@ -621,6 +622,11 @@ export const deletePost = async (formData) => {
 //
 ```
 
+##
+
+```js
+//
+```
 
 ##
 
@@ -628,6 +634,11 @@ export const deletePost = async (formData) => {
 //
 ```
 
+##
+
+```js
+//
+```
 
 ##
 
@@ -635,6 +646,11 @@ export const deletePost = async (formData) => {
 //
 ```
 
+##
+
+```js
+//
+```
 
 ##
 
@@ -642,6 +658,11 @@ export const deletePost = async (formData) => {
 //
 ```
 
+##
+
+```js
+//
+```
 
 ##
 
@@ -649,6 +670,11 @@ export const deletePost = async (formData) => {
 //
 ```
 
+##
+
+```js
+//
+```
 
 ##
 
@@ -656,67 +682,17 @@ export const deletePost = async (formData) => {
 //
 ```
 
-
 ##
 
 ```js
 //
 ```
 
-
 ##
 
 ```js
 //
 ```
-
-
-##
-
-```js
-//
-```
-
-
-##
-
-```js
-//
-```
-
-
-
-
-##
-
-```js
-//
-```
-
-
-##
-
-```js
-//
-```
-
-
-
-##
-
-```js
-//
-```
-
-
-
-##
-
-```js
-//
-```
-
-
 
 ##
 
