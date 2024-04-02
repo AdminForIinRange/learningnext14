@@ -46,5 +46,5 @@ export const deletePost = async (formData) => {
     console.log(err);
   }
 
-  console.log(title, desc, slug, userId);
+  console.log(tid);
 };

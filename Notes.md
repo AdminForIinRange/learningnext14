@@ -116,7 +116,7 @@ const res = await fetch("https://jsonplaceholder.typicode.com/posts", {
 
 ```js
 // cool concept:
-// since the each blog holds all of teh json place holder inc teh user id and id, by linking }href={`/blog/${post.id}`}
+// since the each blog holds all of the json place holder inc the user id and id, by linking }href={`/blog/${post.id}`}
 // we can get the id from each post and travel inside of it
 //THIS IS ONLY POSSIBLE BECAUSE OF THE WAY THE BLONDE FILES ARE STORED, AND THE SLUG
 
@@ -572,6 +572,20 @@ revalidatePath(`/blog`);
 ## deletePost via findByIdAndDelete(id)
 
 ```js
+//serveractiontest/page.jsx
+
+//its juts a input tag form that asks the user for an Id, and you type in the id you want then the event gets directed (REACT auto grabs the event) to @/lib/action by the action={deletePost}
+
+import { deletePost } from "@/lib/action";
+ <form action={deletePost}>
+        <input type="text" placeholder="id" name="id" /> 
+        <button> test </button>{" "}
+      </form>
+
+
+//lib/action.js
+
+// export const deletePost = async (formData) Tt takes in in the event from the input given by the action={deletePost} and destructure's the id 
 
 export const deletePost = async (formData) => {
 
@@ -579,19 +593,19 @@ export const deletePost = async (formData) => {
   const { id} = Object.fromEntries(formData);
 
   try {
-    connectToDb();
+    connectToDb(); //then it connects to the DB, try/catch to find and errors 
   
     await Post.findByIdAndDelete(id); //removing post via Id from form data
 
     console.log(" post deleted");
-    revalidatePath(`/blog`); 
+    revalidatePath(`/blog`);  // lastly it revalidatePath, (already explained = crt+F)
    
 
   } catch (err) {
     console.log(err);
   }
 
-  console.log(title, desc, slug, userId);
+  console.log(id);
 };
 
 ```

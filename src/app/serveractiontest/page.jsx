@@ -1,10 +1,7 @@
 import React from "react";
-import { addPost } from "@/lib/action";
+import { addPost, deletePost } from "@/lib/action";
 const ServerActionTest = () => {
-  const actionInComponent = async () => {
-    "use server";
-    console.log("hello");
-  };
+ 
   return (
     <div>
       {/* //so when i use Action, i am directing the location of where the data event will be sent to.
@@ -23,7 +20,12 @@ attribute that defines the server-side endpoint where form data should be sent.
         <input type="text" placeholder="desc" name="desc" />
         <input type="text" placeholder="slug" name="slug" />
         <input type="text" placeholder="userId" name="userId" />
-        <button type="submit"> test </button>{" "}
+        <button> test </button>{" "}
+      </form>
+
+      <form action={deletePost}>
+        <input type="text" placeholder="id" name="id" />
+        <button> test </button>{" "}
       </form>
     </div>
   );
