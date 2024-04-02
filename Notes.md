@@ -425,6 +425,7 @@ export default ServerActionTest
 
 
 ```
+
 ## Server Side Input's with "action={}" and name
 
 ```js
@@ -436,8 +437,8 @@ import { addPost } from "@/lib/action";
      BTW: React automatically passes the event object to the event handler function
      */}
 
-      {/* 
-onSubmit is a client-side event handler for form submissions, while action is an HTML 
+      {/*
+onSubmit is a client-side event handler for form submissions, while action is an HTML
 attribute that defines the server-side endpoint where form data should be sent.
  */}
 
@@ -456,6 +457,7 @@ attribute that defines the server-side endpoint where form data should be sent.
 
 export default ServerActionTest;
 ```
+
 ## Grasping Server Side input concepts and Other
 
 ```js
@@ -513,7 +515,6 @@ export const addPost = async (formData) => {
     //This line creates a new instance of a Post object.
     //await newPost.save();: This line saves the newly created Post object to the database.
 
-
     console.log("new post added");
   } catch (err) {
     console.log(err);
@@ -527,23 +528,20 @@ export const addPost = async (formData) => {
 // If it is not intended to be a server component, you can leave it as it is.
 // You can remove "async" if its not intended to bt asynchronous. In the page.jsx, you must add "use client"
 // to tell the renderer it is a client component, so render it in the client, please.
-
 ```
 
 ## POST to MongoDB (adding data to collection)
+
 ```js
-
-
 import { Post } from "./models";
 import { connectToDb } from "./utils";
 
 export const addPost = async (formData) => {
   "use server";
-// //creates a "new" instance of post then with the destured elemenst from   const { title, desc, slug, userId } = Object.fromEntries(formData),
+  // //creates a "new" instance of post then with the destured elemenst from   const { title, desc, slug, userId } = Object.fromEntries(formData),
   const { title, desc, slug, userId } = Object.fromEntries(formData);
 
   try {
-
     //  After connecting to DB, new Post (imported from the model, takes in all { title, desc, slug, userId }
     connectToDb();
     const newPost = new Post({ title, desc, slug, userId });
@@ -557,13 +555,18 @@ export const addPost = async (formData) => {
 
   console.log(title, desc, slug, userId);
 };
-
 ```
 
 ```js
-    revalidatePath(`/blog`); 
-    // The revalidate option in Next.js refreshes the content 
-    //of the page on the server-side, not in the browser.
+revalidatePath(`/blog`);
+// The revalidate option in Next.js refreshes the content
+//of the page on the server-side, not in the browser.
+
+// Since SSR renders static HTML pages at build time,
+// without revalidate, these pages would remain static until the next build.
+// The revalidate option ensures that the page content is periodically updated,
+//  allowing clients to see new data, such as posts, without requiring a full rebuild
+// of the site.
 ```
 
 ```js
