@@ -461,6 +461,9 @@ export default ServerActionTest;
     React automatically passes the event object to the event handler function when the form is submitted.
     Therefore, in your addPost function, you can access the event object if needed. */
 
+import { Post } from "./models";
+import { connectToDb } from "./utils";
+
 /* //so when i use Action, i am directing the location of where the data event will be sent to.
      BTW: React automatically passes the event object to the event handler function
      */
@@ -487,10 +490,32 @@ export const addPost = async (formData) => {
   //name/key. So, when you call formData.get("title"), it retrieves the value entered into
   // the input field with the name "title". Similarly, you use the other names to retrieve the respective values entered into the input fields.
 
-  const title = formData.get("title");
-  const desc = formData.get("desc");
-  const slug = formData.get("slug");
-  const userId = formData.get("userId");
+  // const title = formData.get("title");
+  // const desc = formData.get("desc");
+  // const slug = formData.get("slug");
+  // const userId = formData.get("userId");
+
+  const { title, desc, slug, userId } = Object.fromEntries(formData);
+
+  // this line above  essentially converts the FormData object into a regular JavaScript
+  // object and then extracts specific properties from it, making them available
+  //  as variables in the current scope. This approach is often used to simplify
+  //  accessing form data in JavaScript.
+
+  try {
+    connectToDb();
+    const newPost = new Post({ title, desc, slug, userId });
+    await newPost.save();
+
+    //const newPost = new Post({ title, desc, slug, userId });:
+    //This line creates a new instance of a Post object.
+    //await newPost.save();: This line saves the newly created Post object to the database.
+
+
+    console.log("new post added");
+  } catch (err) {
+    console.log(err);
+  }
 
   console.log(title, desc, slug, userId);
 };
@@ -500,6 +525,7 @@ export const addPost = async (formData) => {
 // If it is not intended to be a server component, you can leave it as it is.
 // You can remove "async" if its not intended to bt asynchronous. In the page.jsx, you must add "use client"
 // to tell the renderer it is a client component, so render it in the client, please.
+
 ```
 
 ```js
