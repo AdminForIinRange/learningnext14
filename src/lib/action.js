@@ -28,7 +28,9 @@ export const addPost = async (formData) => {
 
     "use server"
 
-    // The "name" attribute is primarily used to identify form data on the server-side or when accessing form data via JavaScript on the client-side.
+    // he get() method of FormData allows you to retrieve the value associated with a specific 
+    //name/key. So, when you call formData.get("title"), it retrieves the value entered into
+    // the input field with the name "title". Similarly, you use the other names to retrieve the respective values entered into the input fields.
 
     const title = formData.get("title");
     const desc = formData.get("desc");

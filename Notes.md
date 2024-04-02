@@ -283,16 +283,11 @@ const posts = [
 ];
 ```
 
-
-
 ```js
-
-
 // After logging in and creating a project, and creating a cluster, you need to press "Connect" and follow the instructions.
 // - npm install mongodb
 
 // - mongodb+srv://bhattaraianjesh123:<password>@cluster0.l7tduy7.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
-
 
 // simple boilerplate code:  boilerplate code means you don't have to memorize it
 
@@ -338,31 +333,31 @@ MONGO_URI = ""; // incorrect
 ```js
 // For a better SEO
 //When the title is generated, the %s placeholder will be replaced with a specific value. For example, if you have a page with the title "About Us", the %s will be replaced with "About Us", resulting in the title "About Us | Next.js 14".
-export const metadata = { //layout.jsx 
+export const metadata = {
+  //layout.jsx
   title: {
-    default:"Next.js 14 Homepage",
-    template:"%s | Next.js 14" // it seems like a place holder, like a template `%{pageTitle}`
+    default: "Next.js 14 Homepage",
+    template: "%s | Next.js 14", // it seems like a place holder, like a template `%{pageTitle}`
   },
   description: "Next.js starter app description",
 };
 //-----------------------
 
-export const metadata = { // about/page.jsx
+export const metadata = {
+  // about/page.jsx
   title: "About Page",
   description: "About description",
 };
-
 ```
 
-
- ## Server Action's Example
+## Server Action's Example
 
 ```js
 
 
 
 //lib/action
-const sayHello =  async () => { // when use server it has to be async 
+const sayHello =  async () => { // when use server it has to be async
     "use server";
 
     console.log("hello");
@@ -373,23 +368,23 @@ const sayHello =  async () => { // when use server it has to be async
 import React from 'react'
 import {sayHello} from "@/lib/action" // I forgot the function name was sayHello and not say(h)ello (lower case "h"). Make sure you always have a good naming convention to stop these types of stupid errors, and actually read the code. Maybe TypeScript is good, but then again I didn't read the error correctly. Maybe I should have hovered over 'i' and read it.
 
- 
+
 const ServerActionTest  = () => {   // Yeah, so action outputs anything as long as a button is present, basically like a form submit, but without the type="submit".
   return (
 
     <div>
-    <form action={sayHello}>  <button> test </button> </form> 
-  
+    <form action={sayHello}>  <button> test </button> </form>
+
     </div>
 
   )
 }
 
-export default ServerActionTest 
+export default ServerActionTest
 
     // If "use server" is included, your function will be executed on the server
     // and it needs to be an async function.
-    // If it is not intended to be a server component, you can leave it as it is. 
+    // If it is not intended to be a server component, you can leave it as it is.
     // You can remove "async" if its not intended to bt asynchronous. In the page.jsx, you must add "use client"
     // to tell the renderer it is a client component, so render it in the client, please.
 
@@ -424,7 +419,7 @@ const ServerActionTest  = () => {
   )
 }
 
-export default ServerActionTest 
+export default ServerActionTest
 
 
 
@@ -432,11 +427,84 @@ export default ServerActionTest
 ```
 
 ```js
-//
+import React from "react";
+import { addPost } from "@/lib/action";
+const ServerActionTest = () => {
+  const actionInComponent = async () => {
+    "use server";
+    console.log("hello");
+  };
+  return (
+    <div>
+      {/* //so when i use Action, i am directing the location of where the data event will be sent to.
+     BTW: React automatically passes the event object to the event handler function
+     */}
+
+      {/* 
+onSubmit is a client-side event handler for form submissions, while action is an HTML 
+attribute that defines the server-side endpoint where form data should be sent.
+ */}
+
+      <form action={addPost}>
+        <input type="text" placeholder="title" name="title" />{" "}
+        {/*  The "name" attribute is primarily used to identify form data on the server-side or when accessing form data via JavaScript on the client-side.
+         */}
+        <input type="text" placeholder="desc" name="desc" />
+        <input type="text" placeholder="slug" name="slug" />
+        <input type="text" placeholder="userId" name="userId" />
+        <button type="submit"> test </button>{" "}
+      </form>
+    </div>
+  );
+};
+
+export default ServerActionTest;
 ```
 
 ```js
+/* In React, when you define a form with an onSubmit event handler, 
+    React automatically passes the event object to the event handler function when the form is submitted.
+    Therefore, in your addPost function, you can access the event object if needed. */
 
+/* //so when i use Action, i am directing the location of where the data event will be sent to.
+     BTW: React automatically passes the event object to the event handler function
+     */
+
+// action attribute: Specifies the URL for form data processing.
+// It directs the browser to send a request to this URL when the form is submitted.
+// This traditional HTML attribute predates React and defines where the form data should be submitted.
+
+// onSubmit attribute: Specifies a JavaScript function to handle form submissions in React.
+// When the form is submitted, React calls the specified function (e.g., handleSubmit)
+// with the event object as its argument (if included).
+// Using event.preventDefault() within this function prevents default submission behavior,
+// enabling form submission handling within your React component.
+
+/* 
+onSubmit is a client-side event handler for form submissions, while action is an HTML 
+attribute that defines the server-side endpoint where form data should be sent.
+ */
+
+export const addPost = async (formData) => {
+  "use server";
+
+  // he get() method of FormData allows you to retrieve the value associated with a specific
+  //name/key. So, when you call formData.get("title"), it retrieves the value entered into
+  // the input field with the name "title". Similarly, you use the other names to retrieve the respective values entered into the input fields.
+
+  const title = formData.get("title");
+  const desc = formData.get("desc");
+  const slug = formData.get("slug");
+  const userId = formData.get("userId");
+
+  console.log(title, desc, slug, userId);
+};
+
+// If "use server" is included, your function will be executed on the server
+// and it needs to be an async function.
+// If it is not intended to be a server component, you can leave it as it is.
+// You can remove "async" if its not intended to bt asynchronous. In the page.jsx, you must add "use client"
+// to tell the renderer it is a client component, so render it in the client, please.
 ```
 
 ```js
