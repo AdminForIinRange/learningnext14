@@ -1,5 +1,5 @@
-export const sayHello = async () => { // when use server it has to be async 
-    "use server";
+export const sayHello = () => {
+
 
     console.log("hello");
 }

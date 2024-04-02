@@ -376,10 +376,47 @@ const ServerActionTest  = () => {   // Yeah, so action outputs anything as long 
 }
 
 export default ServerActionTest 
+
+//--------------------------------------
+
+// By removing "use server" from a function in Next.js, it becomes a regular JavaScript function not bound by Next.js's rendering rules. It can execute both on the server and the client.
+
+// If you use "use client" on a function, it indicates that this function should only execute on the client-side, meaning it won't run during server-side rendering but will run in the browser once the page is loaded.
+
+// However, removing "use server" doesn't prevent the function from rendering on the server; it simply means the function can execute on both the server and the client, depending on the context in which it's called.
+
+
+export const sayHello = () => {
+
+
+    console.log("hello");
+}
+
+
+
+
+"use client"
+import React from 'react'
+import {sayHello} from "@/lib/action"
+const ServerActionTest  = () => {
+  return (
+
+    <div>
+    <form action={sayHello}>  <button> test </button> </form>
+    </div>
+
+  )
+}
+
+export default ServerActionTest 
+
+
+
+
 ```
 
 ```js
-
+//by removing the "use server
 ```
 
 ```js
