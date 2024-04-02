@@ -20,9 +20,11 @@ attribute that defines the server-side endpoint where form data should be sent.
 
 
 
+
       <form  action={addPost}> 
-       
-    <input type="text"  placeholder="title" name="title"/>
+        
+    <input type="text"  placeholder="title" name="title"/> {/*  The "name" attribute is primarily used to identify form data on the server-side or when accessing form data via JavaScript on the client-side.
+ */}
     <input type="text"  placeholder="desc"  name="desc"/>
 
     <input type="text"  placeholder="slug"  name="slug" />

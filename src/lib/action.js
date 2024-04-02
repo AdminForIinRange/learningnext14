@@ -28,10 +28,13 @@ export const addPost = async (formData) => {
 
     "use server"
 
+    // The "name" attribute is primarily used to identify form data on the server-side or when accessing form data via JavaScript on the client-side.
+
     const title = formData.get("title");
     const desc = formData.get("desc");
     const slug = formData.get("slug");
-    const userId = formData.get("userId");
+    const userId = formData.get("userId"); 
+
 
 
     console.log(title, desc, slug, userId);
