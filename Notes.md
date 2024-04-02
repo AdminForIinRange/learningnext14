@@ -569,6 +569,149 @@ revalidatePath(`/blog`);
 // of the site.
 ```
 
+## deletePost via findByIdAndDelete(id)
+
 ```js
 
+export const deletePost = async (formData) => {
+
+
+  const { id} = Object.fromEntries(formData);
+
+  try {
+    connectToDb();
+  
+    await Post.findByIdAndDelete(id); //removing post via Id from form data
+
+    console.log(" post deleted");
+    revalidatePath(`/blog`); 
+   
+
+  } catch (err) {
+    console.log(err);
+  }
+
+  console.log(title, desc, slug, userId);
+};
+
+```
+##
+
+```js
+//
+```
+
+##
+
+```js
+//
+```
+
+
+##
+
+```js
+//
+```
+
+
+##
+
+```js
+//
+```
+
+
+##
+
+```js
+//
+```
+
+
+##
+
+```js
+//
+```
+
+
+##
+
+```js
+//
+```
+
+
+##
+
+```js
+//
+```
+
+
+##
+
+```js
+//
+```
+
+
+##
+
+```js
+//
+```
+
+
+##
+
+```js
+//
+```
+
+
+
+
+##
+
+```js
+//
+```
+
+
+##
+
+```js
+//
+```
+
+
+
+##
+
+```js
+//
+```
+
+
+
+##
+
+```js
+//
+```
+
+
+
+##
+
+```js
+//
+```
+
+##
+
+```js
+//
 ```
