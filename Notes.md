@@ -59,8 +59,6 @@ export default ContactPage;
 
 ```
 
-
-
 ```JS
 
 
@@ -178,11 +176,9 @@ const SinglePostPage = async ({ params }) => {
       <div className={styles.textContainer}>
         <h1 className={styles.title}> {posts.title} </h1>
         <div className={styles.detail}>
-
-        <Suspense fallback={<div>Loading...</div>}>
-          <PostUser userId={posts.userId} />
-            
-            </Suspense>
+          <Suspense fallback={<div>Loading...</div>}>
+            <PostUser userId={posts.userId} />
+          </Suspense>
           {/*  passing userId from  `https://jsonplaceholder.typicode.com/posts/` allowing me to access a single post from the api */}
           <div className={styles.detailText}>
             <span className={styles.detailTitle}>aUTHOR</span>
@@ -200,7 +196,6 @@ const SinglePostPage = async ({ params }) => {
 };
 
 export default SinglePostPage;
-
 ```
 
 ```js
@@ -220,25 +215,23 @@ const posts = [
   { id: 4, title: "Post 4", body: "......", userId: 2 },
 ];
 export const getPosts = async () => {
-  return posts
-}
+  return posts;
+};
 
 export const getPost = async (id) => {
-    return posts.find((post) => post.id === id)
-  }
-  
-  export const getUser = async (id) => {
-    return posts.find((post) => post.id === id)
-  }
+  return posts.find((post) => post.id === id);
+};
 
+export const getUser = async (id) => {
+  return posts.find((post) => post.id === id);
+};
 
-//src\app\blog\page.jsx 
+//src\app\blog\page.jsx
 
 import { getPosts } from "@/lib/data";
 
 const BlogPage = async () => {
-
-const posts = await getPosts();
+  const posts = await getPosts();
 
   return (
     <div className={styles.container}>
@@ -248,12 +241,10 @@ const posts = await getPosts();
     </div>
   );
 };
-
 ```
 
 ```js
 // Don't pay attention to this code too much; it's just an example of how you can communicate code between data (node) to next.js + App and Components , rather than using fetching an API within the page's .jsx. It's cleaner to put all functional code in your lib/data.js.
-
 
 // Fetching all the posts from the mock API
 export const getPosts = async () => {
@@ -290,18 +281,14 @@ const posts = [
   { id: 3, title: "Post 3", body: "......", userId: 2 },
   { id: 4, title: "Post 4", body: "......", userId: 2 },
 ];
-
 ```
 
-
-//after login and createing a projecrt and creating a cluster you gotta press connect and follow the instruction 
--npm install mongodb 
+//after login and createing a projecrt and creating a cluster you gotta press connect and follow the instruction
+-npm install mongodb
 
 -mongodb+srv://bhattaraianjesh123:<password>@cluster0.l7tduy7.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
 
-
 ```js
-
 // simple boilerplate code:  boilerplate code means you don't have to memorize it
 
 const mongoose = require("mongoose");
@@ -310,12 +297,11 @@ const connection = {};
 
 export const connectToDb = async () => {
   try {
-
     if (connection.isConnected) {
-        console.log("using an existing connection")
+      console.log("using an existing connection");
       return;
     }
-    
+
     const db = await mongoose.connect(process.env.MONGO_URI);
     connection.isConnected = db.connections[0].readyState;
   } catch (error) {
@@ -323,79 +309,50 @@ export const connectToDb = async () => {
     throw new Error("Failed to connect to MongoDB:  `" + error + "`");
   }
 };
-
 ```
 
 ```js
 // So, I found out that your .env file must not contain white spaces. My mistake was having a space between '=' because I assumed it was a normal variable declaration.
 
-MONGO_URI="" // correct 
+MONGO_URI = ""; // correct
 
-MONGO_URI = "" // incorrect 
-
+MONGO_URI = ""; // incorrect
 ```
 
-
-
 ```js
-
 //common tut miskate
-//he keeps reandeirng 
+//he keeps reandeirng
 
-{post?.desc}
+{
+  post?.desc;
+}
 
 //and at time i forget to add ? and my whole program falls into errors
-
 ```
-
 
 ```js
 
 ```
 
+```js
 
+```
 
 ```js
 
 ```
 
+```js
 
-
-
+```
 
 ```js
 
 ```
 
-
-
-
-
-
 ```js
 
 ```
-
-
-
-
-
-
-```js
-
-```
-
-
-
-
-
-```js
-
-```
-
-
-
-
 
 ```js
 
