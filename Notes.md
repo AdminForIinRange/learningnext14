@@ -4,9 +4,7 @@
 // It's very important to follow proper Next.js naming conventions; otherwise, Next.js may not compile correctly, and you may run into unwanted performance issues.
 
 // If you run into any issues, remember to restart your development server and review the names and issues.
-
 ```
-
 
 ```JS
 
@@ -102,9 +100,6 @@ const NavigationTestPage = () => {
 
 export default NavigationTestPage
 ```
-
-
-
 
 ## API Fetching
 
@@ -235,6 +230,8 @@ export const getUser = async (id) => {
   return posts.find((post) => post.id === id);
 };
 
+//-------------------------------------
+
 //src\app\blog\page.jsx
 
 import { getPosts } from "@/lib/data";
@@ -357,8 +354,21 @@ export const metadata = {
   title: "About Page",
   description: "About description",
 };
-```
+//---------------------
 
+// src\app\blog\[slug]\page.jsx
+
+export const generateMetadata = async ({ params }) => {
+  const { slug } = params;
+
+  const post = await getData(slug);
+
+  return {
+    title: post.title,
+    description: post.desc,
+  };
+};
+```
 
 ## API Fetching VS Server Actions
 
@@ -371,7 +381,7 @@ export const metadata = {
 // for use in client-side rendering. This fetching usually happens on the client side,
 // allowing for dynamic updates without full page reloads.
 
-//exmaples below 
+//exmaples below
 
 // pages/serverData.js
 
@@ -509,6 +519,38 @@ export default ServerActionTest
 
 ```
 
+## action is for use server and handle submit is for use client
+
+```JS
+
+//works well and has no issues, it and handel submit is not that far apart
+
+  const handleInputLog = async (e) => { //you still need to pass in event
+    // he dose need a the event, it is automatically passed to the event handler function
+    "use server";
+
+    const { text } = Object.fromEntries(e); // since you don't have a state connected to your input with onChange
+    // you have to destructure it, and your event is an object too
+
+    console.log(text); //logging text, normally you can log state
+  };
+
+  return (
+    <div>
+      {/* extracts the event and auto passing it to the function within {} */}
+      <form onSubmit={handleInputLog}>
+
+        <input type="text" placeholder="text" name="text" />
+        <button>click</button>   {/*  form auto assign's this a type="submit" */}
+      </form>
+    </div>
+  );
+};
+
+//READ THE STUFF I WROTE AND BACK CHECKED BELOW
+
+```
+
 ## Server Side Input's with "action={}" and name
 
 ```js
@@ -551,7 +593,7 @@ export default ServerActionTest;
 import { Post } from "./models";
 import { connectToDb } from "./utils";
 
-/* //so when i use Action, i am directing the location of where the data event will be sent to.
+/* //so when i use Action, i am directing the location of where the event will be sent to.
      BTW: React automatically passes the event object to the event handler function
      */
 
@@ -687,34 +729,225 @@ export const deletePost = async (formData) => {
 };
 ```
 
-##
+## RestFul API
 
 ```js
-//
+// Conceptually, it's easy to understand because I have some experience in Node.js/Express.js, and we already went through server actions and already did some API fetching to JSON placeholder a few hours before, and the code is still there just commented out. The fields are the same anyways, like post, posts, slug, params, and such.
+
+// Restful API and server actions code are not that far off because they both use MongoDB connection and other built-in functions from MongoDB. To say which one is better is hard because I like both, but Restful API wins in cases because I already have some level of experience with it, and I plan to expand on it more. However, Next.js server actions are still pretty good, and I realize I've been doing some server actions when I was using Firebase unknowingly. But I really do want to expand on my restfulness and hopefully get better at using MongoDB, a real DB. I mean Firebase is also a real DB too and has way more built-in stuff like AUTH and stuff, so maybe using them both in conjunction would be a win-win.
 ```
 
-##
+## Using RESTFUL API, GET via Route
 
 ```js
-//
+//src\app\api\blog\route.js
+
+import { Post } from "@/lib/models";
+import { connectToDb } from "@/lib/utils";
+import { NextResponse } from "next/server";
+
+export const GET = async (req) => {
+  try {
+    connectToDb();
+
+    const posts = await Post.find();
+    return NextResponse.json(posts); //NextResponse: This represents the response object that will be sent back to the client.
+
+    // .json(): This is a method that converts the data passed to it (in this case, posts) into JSON format.
+  } catch (err) {
+    console.log(err);
+    throw new Error(err);
+  }
+};
+
+//-------------------------------------
+
+// src\app\blog\page.jsx
+
+import PostCard from "@/components/postCard/PostCard";
+import styles from "./blog.module.css";
+import { getPosts } from "@/lib/data";
+
+// FETCH DATA WITH AN API
+
+const getData = async () => {
+  const res = await fetch("http://localhost:3000/api/blog", {
+    next: { revalidate: 3600 },
+  });
+
+  if (!res.ok) {
+    throw new Error("Something went wrong");
+  }
+
+  return res.json();
+};
+
+const BlogPage = async () => {
+  // FETCH DATA WITH API (RESTFUL API)
+  const posts = await getData();
+
+  // FETCH DATA WITHOUT API (SERVER ACTIONS)
+  // const posts = await getPosts();
+
+  return (
+    <div className={styles.container}>
+      {posts.map((post) => (
+        <PostCard key={post.id} post={post} />
+      ))}
+    </div>
+  );
+};
+
+export default BlogPage;
 ```
 
-##
+## Allow Api request to access [slug] and GET via route
 
 ```js
-//
+// src\app\api\blog\[slug]\route.js
+
+import { Post } from "@/lib/models";
+import { connectToDb } from "@/lib/utils";
+import { NextResponse } from "next/server";
+
+export const GET = async (req, { prams }) => {
+  const { slug } = prams;
+  try {
+    connectToDb();
+
+    const post = await Post.findOne({ slug }); //just like in src\lib\data.js
+    return NextResponse.json(post);
+    //NextResponse: This represents the response object that will be sent back to the client.
+    // .json(): This is a method that converts the data passed to it (in this case, posts) into JSON format.
+  } catch (err) {
+    console.log(err);
+    throw new Error(err);
+  }
+};
+
+//-------------------------------------
+
+// src\app\blog\[slug]\page.jsx
+
+// Define an asynchronous function named getData that takes a 'slug' parameter
+const getData = async (slug) => {
+  // Fetch data from the specified API endpoint using the provided 'slug'
+  const res = await fetch(`http://localhost:3000/api/blog/${slug}`, {
+    // Optional: Provide configuration for Next.js Incremental Static Regeneration
+    next: { revalidate: 3600 }, // Revalidate data every 3600 seconds (1 hour)
+  });
+
+  // Check if the response is not okay (HTTP status code other than 200)
+  if (!res.ok) {
+    // Throw an error if something went wrong with the request
+    throw new Error("Something went wrong");
+  }
+
+  // Return the response body as JSON
+  return res.json();
+};
+
+const SinglePostPage = async ({ params }) => {
+  // using params, slug is passed as a parameter its a buit in function in nextjs
+
+  const { slug } = params;
+  const post = await getData(slug);
+
+  // const post = await getPost(slug); //passing slug as a parameter in side getdata, slug's raw value is /blog/[slug]
+};
+
+export default SinglePostPage;
 ```
 
-##
+## DELETE via route
 
 ```js
-//
+export const DELETE = async (req, { prams }) => {
+  const { slug } = prams;
+  try {
+    connectToDb();
+
+    const post = await Post.findByIdAndDelete({ slug }); //just like in src\lib\data.js
+    return NextResponse.json("deleted"); //NextResponse: This represents the response object that will be sent back to the client.
+  } catch (err) {
+    console.log(err);
+    throw new Error(err);
+  }
+};
 ```
 
-##
+## Auth
 
 ```js
-//
+// Using Next-Auth from Auth.js
+//In this case we are using Github as a Auth method
+import NextAuth from "next-auth"; // Import the NextAuth library
+import GitHub from "next-auth/providers/github"; // Import the GitHub provider
+
+// Initialize NextAuth with the desired authentication providers
+export const {
+  handlers: { GET, POST },
+  auth,
+  signIn,
+  signOut,
+} = NextAuth({
+  providers: [
+    GitHub({
+      clientId: process.env.GITHUB_ID, // GitHub OAuth client ID
+      clientSecret: process.env.GITHUB_SECRET, // GitHub OAuth client secret
+    }),
+  ],
+});
+```
+
+## Console.log'ing our Auth session and logging in via github
+
+```js
+// src\app\api\auth\[...nextauth]
+
+//this file name allows us to to map over all the auth function, within nextauth, so you don't have to make sigin-In, siginout, login  session and such and such.
+
+//using Auth.js you dont have to worry about cookies and session and what not, firebase auth is teh same too i believe
+
+//-------------------------------------
+//src\app\api\auth\[...nextauth]\route.js
+
+const { GET, POST } = require("@/lib/auth"); // from  "handlers: {GET, POST}" above
+
+export { GET, POST };
+
+//-------------------------------------
+
+// src\app\(auth)\login\page.jsx
+
+import { auth, signIn } from "@/lib/auth";
+
+import React from "react";
+
+const LoginPage = async () => {
+  const session = await auth();
+
+  console.log(session);
+
+  const handleLogin = async (e) => {
+    "use server";
+
+    const { text } = Object.fromEntries(e);
+    await signIn("github");
+    console.log(text);
+  };
+
+  return (
+    <div>
+      <form action={handleLogin}>
+        <input type="text" placeholder="text" name="text" />
+        <button>cLick</button>
+      </form>
+    </div>
+  );
+};
+
+export default LoginPage;
 ```
 
 ##
