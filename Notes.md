@@ -1,4 +1,4 @@
-\*\*\* Read
+# Read these Notes if need be
 
 ```js
 // It's very important to follow proper Next.js naming conventions; otherwise, Next.js may not compile correctly, and you may run into unwanted performance issues.
@@ -8,7 +8,7 @@
 
 ```JS
 
-// If you ever get stuck on hydration, watch Timestamp 1:58.
+// If you ever get stuck on hydration, watch Timestamp 01:58
 
 // "use client";
 import Image from "next/image";
@@ -283,12 +283,17 @@ const posts = [
 ];
 ```
 
-//after login and createing a projecrt and creating a cluster you gotta press connect and follow the instruction
--npm install mongodb
 
--mongodb+srv://bhattaraianjesh123:<password>@cluster0.l7tduy7.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
 
 ```js
+
+
+// After logging in and creating a project, and creating a cluster, you need to press "Connect" and follow the instructions.
+// - npm install mongodb
+
+// - mongodb+srv://bhattaraianjesh123:<password>@cluster0.l7tduy7.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+
+
 // simple boilerplate code:  boilerplate code means you don't have to memorize it
 
 const mongoose = require("mongoose");
@@ -349,7 +354,12 @@ export const metadata = { // about/page.jsx
 
 ```
 
+
+ ## Server Action's Example
+
 ```js
+
+
 
 //lib/action
 const sayHello =  async () => { // when use server it has to be async 
@@ -377,7 +387,13 @@ const ServerActionTest  = () => {   // Yeah, so action outputs anything as long 
 
 export default ServerActionTest 
 
-//--------------------------------------
+    // If "use server" is included, your function will be executed on the server
+    // and it needs to be an async function.
+    // If it is not intended to be a server component, you can leave it as it is. 
+    // You can remove "async" if its not intended to bt asynchronous. In the page.jsx, you must add "use client"
+    // to tell the renderer it is a client component, so render it in the client, please.
+
+//----------------------------------------------------------------------------------
 
 // By removing "use server" from a function in Next.js, it becomes a regular JavaScript function not bound by Next.js's rendering rules. It can execute both on the server and the client.
 
@@ -416,7 +432,7 @@ export default ServerActionTest
 ```
 
 ```js
-//by removing the "use server
+//
 ```
 
 ```js
