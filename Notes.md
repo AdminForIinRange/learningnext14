@@ -104,78 +104,6 @@ export default NavigationTestPage
 ```
 
 
-## API Fetching VS Server Actions
-
-```js
-// Server actions in Next.js typically involve operations that occur on the server side,
-// such as fetching data or performing computations, before the page is rendered.
-// These actions are executed within the Next.js server environment.
-
-// API fetching, on the other hand, involves making requests to external APIs to retrieve data
-// for use in client-side rendering. This fetching usually happens on the client side,
-// allowing for dynamic updates without full page reloads.
-
-//exmaples below 
-
-// pages/serverData.js
-
-export async function getServerSideProps(context) {
-  // Fetch data from an API or perform server-side computations
-  const data = await fetchDataFromServer();
-
-  // Pass data to the page component as props
-  return {
-    props: {
-      data,
-    },
-  };
-}
-
-function ServerData({ data }) {
-  // Render the page with server-side data
-  return (
-    <div>
-      <h1>Server-side Data</h1>
-      <p>{data}</p>
-    </div>
-  );
-}
-
-export default ServerData;
-
-
-// pages/clientData.js
-
-import { useEffect, useState } from 'react';
-
-function ClientData() {
-  const [data, setData] = useState('');
-
-  useEffect(() => {
-    // Fetch data from an API or perform client-side computations
-    const fetchData = async () => {
-      const response = await fetch('https://api.example.com/data');
-      const result = await response.json();
-      setData(result);
-    };
-
-    fetchData();
-  }, []);
-
-  // Render the page with client-side data
-  return (
-    <div>
-      <h1>Client-side Data</h1>
-      <p>{data}</p>
-    </div>
-  );
-}
-
-export default ClientData;
-
-
-
-```
 
 
 ## API Fetching
@@ -429,6 +357,80 @@ export const metadata = {
   title: "About Page",
   description: "About description",
 };
+```
+
+
+## API Fetching VS Server Actions
+
+```js
+// Server actions in Next.js typically involve operations that occur on the server side,
+// such as fetching data or performing computations, before the page is rendered.
+// These actions are executed within the Next.js server environment.
+
+// API fetching, on the other hand, involves making requests to external APIs to retrieve data
+// for use in client-side rendering. This fetching usually happens on the client side,
+// allowing for dynamic updates without full page reloads.
+
+//exmaples below 
+
+// pages/serverData.js
+
+export async function getServerSideProps(context) {
+  // Fetch data from an API or perform server-side computations
+  const data = await fetchDataFromServer();
+
+  // Pass data to the page component as props
+  return {
+    props: {
+      data,
+    },
+  };
+}
+
+function ServerData({ data }) {
+  // Render the page with server-side data
+  return (
+    <div>
+      <h1>Server-side Data</h1>
+      <p>{data}</p>
+    </div>
+  );
+}
+
+export default ServerData;
+
+
+// pages/clientData.js
+
+import { useEffect, useState } from 'react';
+
+function ClientData() {
+  const [data, setData] = useState('');
+
+  useEffect(() => {
+    // Fetch data from an API or perform client-side computations
+    const fetchData = async () => {
+      const response = await fetch('https://api.example.com/data');
+      const result = await response.json();
+      setData(result);
+    };
+
+    fetchData();
+  }, []);
+
+  // Render the page with client-side data
+  return (
+    <div>
+      <h1>Client-side Data</h1>
+      <p>{data}</p>
+    </div>
+  );
+}
+
+export default ClientData;
+
+
+
 ```
 
 ## Server Action's Example
