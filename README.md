@@ -1,23 +1,3 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
-
-## Getting Started
-
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-# Notes.md from Next.js (Update and Format Every Day until Project is complete)
-
 # Read these Notes if need be
 
 ```js
@@ -84,7 +64,7 @@ export default ContactPage;
 
 
 
-// It's like using Navigate("/Auth") in React via react-router-dom, but it's better in Next.js because of its flexibility and simple functionality. Timestamp: 2:08 (watch the section; it's pretty interesting, forcing users to shift routes and qurry'ing and its pretty simple code ).
+// It's like using Navigate("/Auth") in React via react-router-dom, but it's better in Next.js because of its flexibility and simple functionality. Timestamp: 2:08 (watch the section; it's pretty interesting, forcing users to shift routes and querying and its pretty simple code ).
 
 
 
@@ -92,7 +72,7 @@ export default ContactPage;
 
 "use client"
 import Link from "next/link"
-import { usePathname, useRouter, useSearchParams } from "next/navigation" //updated and higher vir import dont forget Next/<import> is always recomened
+import { usePathname, useRouter, useSearchParams } from "next/navigation" //updated and higher vir import don't forget Next/<import> is always recommend
 
 const NavigationTestPage = () => {
 
@@ -124,13 +104,13 @@ export default NavigationTestPage
 ## API Fetching
 
 ```js
-//dont use  {cache: "no-store"} when you have large ammounst fo data changing, but if your data is retaibly conststant with minro changes then use it,
+//don't use  {cache: "no-store"} when you have large amounts fo data changing, but if your data is relatively constant with minor changes then use it,
 
 const res = await fetch("https://jsonplaceholder.typicode.com/posts", {
   cache: "no-store",
 });
 
-//{revalidate:3600} will refesh your data evey 1 hour = 3600
+//{revalidate:3600} will refresh your data every 1 hour = 3600
 const res = await fetch("https://jsonplaceholder.typicode.com/posts", {
   next: { revalidate: 3600 },
 });
@@ -153,7 +133,7 @@ const res = await fetch("https://jsonplaceholder.typicode.com/posts", {
 
 // In Next.js, when using dynamic routes, you can access the route parameters (like the slug or post ID) through the params object in the page component's props. This is part of Next.js's built-in functionality for handling dynamic routes.
 
-const SinglePostPage = async ({ params }) => { // using params, slug is passed as a parameter its a buit in function in nextjs
+const SinglePostPage = async ({ params }) => { // using params, slug is passed as a parameter its a built in function in nextjs
 
 const {slug} = params
   const posts = await getData(slug) //passing slug as a parameter in side getdata (fetch func), slug's raw value is /blog/[slug]
@@ -170,7 +150,7 @@ import PostUser from "@/components/postUser/PostUser";
 
 const getData = async (slug) => {
   const res = await fetch(`https://jsonplaceholder.typicode.com/posts/${slug}`); // using slug as a parameter
-  // THIS WHOEL API IS STURCTED AROUND USER, POST'S AND OTHER DATA YOU WOULD SEE IN SOCIAL MEDIA
+  // THIS WHOLE API IS STRUCTURED AROUND USER, POST'S AND OTHER DATA YOU WOULD SEE IN SOCIAL MEDIA
   if (!res.ok) {
     throw new Error("Something went wrong");
   }
@@ -550,7 +530,7 @@ export default ServerActionTest
     "use server";
 
     const { text } = Object.fromEntries(e); // since you don't have a state connected to your input with onChange
-    // you have to destructure it, and your event is an object too
+    // you have to destructrue it, and your event is an object too
 
     console.log(text); //logging text, normally you can log state
   };
@@ -683,7 +663,7 @@ import { connectToDb } from "./utils";
 
 export const addPost = async (formData) => {
   "use server";
-  // //creates a "new" instance of post then with the destured elemenst from   const { title, desc, slug, userId } = Object.fromEntries(formData),
+  // //creates a "new" instance of post then with the destrued elemenst from   const { title, desc, slug, userId } = Object.fromEntries(formData),
   const { title, desc, slug, userId } = Object.fromEntries(formData);
 
   try {
@@ -729,7 +709,7 @@ import { deletePost } from "@/lib/action";
 
 //lib/action.js
 
-// export const deletePost = async (formData) Tt takes in in the event from the input given by the action={deletePost} and destructure's the id
+// export const deletePost = async (formData) Tt takes in in the event from the input given by the action={deletePost} and destructrue's the id
 
 export const deletePost = async (formData) => {
   const { id } = Object.fromEntries(formData);
@@ -927,7 +907,7 @@ export const {
 
 //this file name allows us to to map over all the auth function, within nextauth, so you don't have to make sigin-In, siginout, login  session and such and such.
 
-//using Auth.js you dont have to worry about cookies and session and what not, firebase auth is teh same too i believe
+//using Auth.js you don't have to worry about cookies and session and what not, firebase auth is teh same too i believe
 
 //-------------------------------------
 //src\app\api\auth\[...nextauth]\route.js
@@ -970,34 +950,513 @@ const LoginPage = async () => {
 export default LoginPage;
 ```
 
-##
+## handleGithubLogin to action.js and signIn("github"); via Auth.js
 
 ```js
-//
+export const handleGithubLogin = async () => {
+  // its best practice to put all your serve actions/function's/component's in one file
+
+  await signIn("github");
+};
 ```
 
-##
+## handleLogout via signOut("github") via Auth.js
 
 ```js
-//
+export const handleLogout = async () => {
+  await signOut("github"); // pretty rudimentary, naming convention, although i would of perrfed logot, not signout
+
+  console.log(session);
+};
 ```
 
-##
+## When a button is clicked inside a form, it auto refresh's, its a default behavior
 
 ```js
-//
+const LoginPage = async () => {
+  const session = await auth();
+
+  console.log(session);
+
+  return (
+    <div>
+      <form action={handleGithubLogin}>
+        {/* When a button is clicked inside a form, it automatically refreshes the page 
+   because handleGithubLogin does not have an e.preventDefault(), so the page will refresh,
+    meaning it reruns the page again, that's why it's logging session. */}
+        {/* //acts like an onClick for now, until we expand the login form */}
+
+        <button>cLick</button>
+      </form>
+    </div>
+  );
+};
+
+export default LoginPage;
 ```
 
-##
+## Server and Client, async and useState conflict
 
 ```js
 //
+
+const Links = async () => {
+
+  //Async cant be assigned because its a server function, and below you are using useState, wish is a client function
+
+  const [open, setOpen] = useState(false);
+
+  const session = await auth();  // if you are using await, your top function must be async
 ```
 
-##
+## Passed Session as a prop to negate conflict above
 
 ```js
-//
+// Passed Session as a prop to negative  conflict above
+
+const session = await auth();
+
+// you could create a function that does this in the lib
+ //folder to reduce repetition and make it more organized
+
+
+// src\components\navbar\Navbar.jsx
+
+const Navbar = async () => {
+  const session = await auth();
+
+  return (
+  <Links session={session} /> // I can do this because Navbar.jsx does not have any client functions; it is static and not dynamic. It does not take any user input. However, the components inside do. It makes sense that certain components inside Navbar.jsx are client-based, while the overall Navbar.jsx that holds the client is server-based. It feels optimized, and Next.js only renders what it needs.
+
+  )
+
+//---------------------------------------------
+
+// src\components\navbar\links\Links.jsx
+
+const Links = ({ session }) => {
+
+  const [open, setOpen] = useState(false);
+
+```
+
+## ?. operator, great for true checking: session.user?.isAdmin
+
+```js
+
+
+//Using session.user.isAdmin without the optional chaining operator ?. assumes that session.user always exists and has an isAdmin property. If session.user were to be null or undefined, accessing the isAdmin property directly would result in a runtime error, typically causing your application to crash.
+
+
+  {session?.user ?  (  // if session is true, and it contain's user and if that statement is true again then => , if session.user is also true, and it contains isAdmin and thats also true (&&) then render <>
+          <>
+            {session.user?.isAdmin  && <NavLink item={{ title: "Admin", path: "/admin" }} />}{" "}
+```
+
+## junior vs senior diffenace in code quilty (i think)
+
+```js
+//junior
+
+if (session === null) {
+  console.log("no user");
+} else console.log(session.user.name);
+
+//senior
+
+{
+  session ? console.log(session.user.name) : console.log("no user");
+}
+```
+
+## Weird CSS Code, Either, high lvl css or bad code idk
+
+```js
+const NavLink = ({ item }) => {
+  const pathName = usePathname();
+  return (
+    // Click on the overlay links; they will all become rounded.
+    // If the pathname === item path, and if that's true,
+    // then change the class to active, which just changes
+    // the color of the background and font. It was always rounded
+    // and had a block around it, just not no bg color; that's why it didn't show.
+
+    <Link
+      className={`${styles.container} 
+      
+      ${
+        // just read the func its simple
+        pathName === item.path && styles.active // is pathname "url/ur" is equal to item.title then active class will
+      }`}
+      href={item.path}
+    >
+      {" "}
+      {item.title}
+    </Link>
+  );
+};
+```
+
+## My session Checker session?.user ? :
+
+```js
+{
+  session?.user
+    ? console.log(session.user?.name)
+    : console.log("no user, value: " + session);
+}
+//if session ture, and it conatains user, and if that statement is true then console log session.user.name else console log no user
+```
+
+## Creating new User via the Github Auth, via Auth.js and NextAuth "next-auth"
+
+```js
+
+// src\lib\auth.js
+
+
+  callbacks: {
+    async signIn({ user, account, profile }) {
+      console.log(user, account, profile);
+      if (account.provider === "github") {
+        connectToDb();
+        try {
+          const user = await User.findOne({ email: profile.email });
+          // retieving the user email from db
+          if (!user) {
+            // if user email is not found/false
+            const newUser = new User({
+              //create new user
+              name: profile.name,
+              username: profile.login,
+              email: profile.email,
+              img: profile.avatar_url,
+            });
+
+            await newUser.save(); // saving the new user to db
+          }
+        } catch (err) {
+          console.log(err);
+          return false; // end the auth function with a false
+          // if there is an error (no lingering sessions)
+        }
+      }
+      return true;
+    },
+  },
+
+
+// Github Singin profile console.log
+ console.log(profile);
+
+// i removed some sensitive information
+
+  login: 'AdminForIinRange',
+  id: 91888685,
+  node_id: 'U_kgDOBXocLQ',
+  avatar_url: 'https://avatars.githubusercontent.com/u/91888685?v=4'
+  type: 'User',
+  site_admin: false,
+  name: 'Anjesh',
+  location: ' ',
+  email: '',
+
+}
+
+```
+
+## Cheak if user's Login matches the DB
+
+```js
+
+
+
+const login = async (credentials) => {
+  // Login: This function checks if the user's login email and password match the database.
+  //You're not creating a new user, you are simply checking if they exist in the user collection.
+  try {
+    connectToDb(); // Connecting to the database
+    const user = await User.findOne({ username: credentials.username }); // Finding user by username
+
+    // If user not found, throw an error
+    if (!user) {
+      throw new Error("Wrong credentials!");
+    }
+
+    // Comparing passwords
+    const isPasswordCorrect = await bcryptjs.compare(credentials.password, user.password);
+
+    // If password is incorrect, throw an error
+    if (!isPasswordCorrect) {
+      throw new Error("Wrong credentials!");
+    }
+
+    // If everything is correct, return the user
+    return user;
+
+  } catch (err) {
+    console.log(err); // Log any errors
+    throw new Error("Failed to login!"); // Throw error for failed login attempt
+  }
+};
+
+
+
+  CredentialsProvider({
+
+      // This is an async function defined within CredentialsProvider. It takes credentials as an argument,
+      // representing the credentials entered by the user during the authentication process.
+
+      async authorize(credentials) {
+        try {
+          // Attempt to log in the user using the provided credentials
+          const user = await login(credentials);
+
+          // If login is successful, return the user object
+          return user;
+        } catch (err) {
+          // If login fails due to incorrect credentials or any other error, return null
+          return null;
+        }
+      },
+    }),
+
+```
+
+## Copy of old action.js code
+
+```js
+"use server"; // don't forget this is Server Side Rendered
+
+import { revalidatePath } from "next/cache";
+import { Post } from "./models";
+import { connectToDb } from "./utils";
+import { auth, signIn, signOut } from "./auth";
+import bcryptjs from "bcryptjs";
+
+export const addPost = async (formData) => {
+  // formData is an object containing data from the form
+
+  const { title, desc, slug, userId } = Object.fromEntries(formData);
+
+  try {
+    connectToDb();
+    const newPost = new Post({ title, desc, slug, userId });
+    await newPost.save();
+
+    console.log("new post added");
+    revalidatePath(`/blog`);
+    // The revalidate option in Next.js refreshes the content
+    //of the page on the server-side, not in the browser.
+  } catch (err) {
+    console.log(err);
+  }
+
+  console.log(title, desc, slug, userId);
+};
+
+export const deletePost = async (formData) => {
+  const { id } = Object.fromEntries(formData);
+
+  try {
+    connectToDb();
+
+    await Post.findByIdAndDelete(id); //removing post via Id from form data
+
+    console.log(" post deleted");
+    revalidatePath(`/blog`);
+  } catch (err) {
+    console.log(err);
+  }
+
+  console.log(id);
+};
+
+export const handleGithubLogin = async () => {
+  // its best practice to put all your serve actions/function's/component's in one file
+
+  await signIn("github");
+};
+
+export const handleLogout = async () => {
+  await signOut("github"); // pretty rudimentary, naming convention, although i would of perrfed logot, not signout
+};
+
+export const register = async (formData) => {
+  const { username, email, password, passwordRepeat } =
+    Object.fromEntries(formData);
+
+  if (password !== passwordRepeat) {
+    return { error: "Passwords do not match" };
+  }
+
+  try {
+    connectToDb();
+
+    const user = await auth.getUserByEmail({ username });
+
+    if (user) {
+      return { error: "Username already taken" };
+      // if user email is not found/false, teh return data sets sent to teh useFormState,
+      // and becomes the new state
+    }
+
+    const salt = await bcryptjs.genSalt(10);
+    const hashedPassword = await bcryptjs.hash(password, salt);
+    // this hasing, bcryptjs thing is pretty cool, maybe i can use it in other project, not just about Auth
+    const newUser = new User({ username, email, password: hashedPassword });
+    // making password hashed via "bcryptjs"
+
+    await newUser.save();
+
+    console.log("new user created");
+  } catch (err) {
+    console.log(err);
+
+    return { error: err.message };
+  }
+};
+
+export const login = async (formData) => {
+  const { username, password } = Object.fromEntries(formData);
+
+  try {
+    await signIn("credentials", { username, password });
+
+    console.log("new user created");
+  } catch (err) {
+    console.log(err);
+
+    return { error: err.message };
+  }
+};
+```
+
+## Example of useFormState from React Docs
+
+```js
+import { useFormState } from "react-dom";
+
+async function increment(previousState, formData) {
+  return previousState + 1;
+}
+
+function StatefulForm({}) {
+  const [state, formAction] = useFormState(increment, 0);
+  return (
+    <form>
+      {state}
+      <button formAction={formAction}>Increment</button>
+    </form>
+  );
+}
+```
+
+## Old auth.js code
+
+```js
+// Importing necessary modules and packages
+import NextAuth from "next-auth";
+import GitHub from "next-auth/providers/github";
+import CredentialsProvider from "next-auth/providers/credentials";
+import { connectToDb } from "./utils";
+import { User } from "./models";
+import bcryptjs from "bcryptjs";
+
+// Function to handle login process
+const login = async (credentials) => {
+  // Login: This function checks if the user's login email and password match the database.
+  //You're not creating a new user, you are simply checking if they exist in the user collection.
+  try {
+    connectToDb(); // Connecting to the database
+    const user = await User.findOne({ username: credentials.username }); // Finding user by username
+
+    // If user not found, throw an error
+    if (!user) {
+      throw new Error("Wrong credentials!");
+    }
+
+    // Comparing passwords
+    const isPasswordCorrect = await bcryptjs.compare(
+      credentials.password,
+      user.password,
+    );
+
+    // If password is incorrect, throw an error
+    if (!isPasswordCorrect) {
+      throw new Error("Wrong credentials!");
+    }
+
+    // If everything is correct, return the user
+    return user;
+  } catch (err) {
+    console.log(err); // Log any errors
+    throw new Error("Failed to login!"); // Throw error for failed login attempt
+  }
+};
+
+// Exporting handlers and authentication functions
+export const {
+  handlers: { GET, POST }, // Handlers for GET and POST requests
+  auth, // Authentication function
+  signIn, // Function to sign in
+  signOut, // Function to sign out
+} = NextAuth({
+  providers: [
+    GitHub({
+      clientId: process.env.GITHUB_ID, // GitHub client ID
+      clientSecret: process.env.GITHUB_SECRET, // GitHub client secret
+    }),
+    CredentialsProvider({
+      // This is an async function defined within CredentialsProvider. It takes credentials as an argument,
+      // representing the credentials entered by the user during the authentication process.
+
+      async authorize(credentials) {
+        try {
+          // Attempt to log in the user using the provided credentials
+          const user = await login(credentials);
+
+          // If login is successful, return the user object
+          return user;
+        } catch (err) {
+          // If login fails due to incorrect credentials or any other error, return null
+          return null;
+        }
+      },
+    }),
+  ],
+  callbacks: {
+    async signIn({ user, account, profile }) {
+      console.log(user, account, profile); // Log user, account, and profile information
+      if (account.provider === "github") {
+        // If the authentication provider is GitHub
+        connectToDb(); // Connect to the database
+        try {
+          const user = await User.findOne({ email: profile.email }); // Find user by email
+
+          // If user not found, create a new user
+          if (!user) {
+            const newUser = new User({
+              username: profile.login, // Set username
+              email: profile.email, // Set email
+              img: profile.avatar_url, // Set profile image
+            });
+
+            await newUser.save(); // Save new user to the database
+          }
+        } catch (err) {
+          console.log(err); // Log any errors
+          return false; // Return false if there is an error
+        }
+      }
+      return true; // Return true if authentication is successful
+    },
+    authorized({auth, request}){
+
+    }
+  },
+});
+
 ```
 
 ##
